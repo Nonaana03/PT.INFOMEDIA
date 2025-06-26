@@ -97,8 +97,7 @@ if (!isset($_SESSION['username'])) {
         </div>
         <div class="content">
             <div class="logo">
-                <!-- Ganti src logo di bawah dengan logo asli jika ada -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Infomedia_logo.png" alt="infomedia">
+                <img src="infomedia.png" alt="infomedia" style="width: 180px; margin-bottom: 20px;">
                 <h1>infomedia</h1>
                 <div>by Telkom Indonesia</div>
             </div>
