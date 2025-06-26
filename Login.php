@@ -3,11 +3,11 @@ session_start(); // Memulai session
 $error = ''; // Variabel untuk menyimpan pesan error
 if (isset($_POST['simpan'])) {
     if (empty($_POST['username']) || empty($_POST['password'])) {
-        echo "Username or Password tidak boleh kosong";
+    echo "Username or Password tidak boleh kosong";
     } else {
-        // Variabel username dan password
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+    // Variabel username dan password
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
         // Membangun koneksi ke database
         $connection = mysqli_connect("localhost", "root", "", "persediaan_barang");
@@ -15,11 +15,11 @@ if (isset($_POST['simpan'])) {
             die("Koneksi gagal: " . mysqli_connect_error());
         }
 
-        // Mencegah MySQL injection
+    // Mencegah MySQL injection
         $username = mysqli_real_escape_string($connection, stripslashes($username));
         $password = mysqli_real_escape_string($connection, stripslashes($password));
 
-        // SQL query untuk memeriksa apakah user terdapat di database?
+    // SQL query untuk memeriksa apakah user terdapat di database?
         $query = mysqli_query($connection, "SELECT * FROM user WHERE username='$username' AND password='$password'");
         $user = mysqli_fetch_assoc($query);
 
@@ -39,7 +39,7 @@ if (isset($_POST['simpan'])) {
             echo "Username atau Password belum terdaftar";
         }
         mysqli_close($connection); // Menutup koneksi
-    }
+}
 }
 ?>
 <!-- HTML & CSS untuk tampilan login modern -->
