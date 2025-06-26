@@ -18,14 +18,30 @@ if (mysqli_num_rows($table_check) == 0) {
     exit();
 }
 
-// Proses simpan data absensi
-if (isset($_POST['simpan'])) {
+$foto = '';
+$nama = '';
+$sukses = '';
+$error = '';
+
+if (isset($_POST['absen'])) {
     $id_karyawan = mysqli_real_escape_string($connection, $_POST['id_karyawan']);
-    $tanggal = mysqli_real_escape_string($connection, $_POST['tanggal']);
-    $status = mysqli_real_escape_string($connection, $_POST['status']);
-    $insert = mysqli_query($connection, "INSERT INTO absensi (id_karyawan, tanggal, status) VALUES ('$id_karyawan', '$tanggal', '$status')");
-    if (!$insert) {
-        echo '<div style="color:red;">Gagal menyimpan data: '.mysqli_error($connection).'</div>';
+    $tanggal = date('Y-m-d');
+    $jam = date('H:i:s');
+
+    // Cek apakah karyawan ada
+    $cek = mysqli_query($connection, "SELECT * FROM karyawan WHERE id='$id_karyawan'");
+    if ($row = mysqli_fetch_assoc($cek)) {
+        $foto = $row['foto'];
+        $nama = $row['nama'];
+        // Simpan absen
+        $insert = mysqli_query($connection, "INSERT INTO absensi (id_karyawan, tanggal, jam) VALUES ('$id_karyawan', '$tanggal', '$jam')");
+        if ($insert) {
+            $sukses = "Absen berhasil untuk $nama pada $tanggal $jam";
+        } else {
+            $error = "Gagal menyimpan absen!";
+        }
+    } else {
+        $error = "ID Karyawan tidak ditemukan!";
     }
 }
 
@@ -38,28 +54,19 @@ $karyawan = mysqli_query($connection, "SELECT * FROM karyawan ORDER BY nama ASC"
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Daftar Hadir - INFOMEDIA</title>
+    <title>Absen Karyawan - INFOMEDIA</title>
     <style>
         body { margin: 0; font-family: Arial, sans-serif; background: #f7f7f7; }
         .header { background: #f55; color: #fff; padding: 30px 0 20px 0; text-align: center; font-size: 2em; font-weight: bold; letter-spacing: 2px; }
-        .container { display: flex; margin: 0 auto; max-width: 1100px; min-height: 80vh; }
-        .sidebar { background: #ff7f2a; color: #fff; width: 250px; padding: 20px 0; }
-        .sidebar h3 { text-align: center; margin-bottom: 30px; font-size: 1.2em; letter-spacing: 1px; }
-        .menu { list-style: none; padding: 0; }
-        .menu li { padding: 15px 30px; border-bottom: 1px solid #fff3; cursor: pointer; display: flex; align-items: center; }
-        .menu li:hover { background: #ff9f5a; }
-        .menu li:last-child { color: #ffb3b3; }
-        .content { flex: 1; background: #fff; padding: 30px; }
-        .form-entry { margin-bottom: 30px; border: 1px solid #ccc; padding: 20px; border-radius: 8px; background: #fafafa; max-width: 400px; }
-        .form-entry h4 { margin-top: 0; }
-        .form-entry label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-entry input[type="text"], .form-entry input[type="date"], .form-entry select { width: 95%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
-        .form-entry input[type="submit"] { padding: 8px 20px; background: #f55; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-        .form-entry input[type="submit"]:hover { background: #d44; }
-        table { width: 100%; border-collapse: collapse; background: #fff; }
-        th, td { border: 1px solid #bbb; padding: 8px 10px; text-align: left; }
-        th { background: #ffe0e0; }
-        tr:nth-child(even) { background: #f9f9f9; }
+        .container { display: flex; justify-content: center; align-items: center; min-height: 80vh; }
+        .absen-box { background: #fff; padding: 40px 30px; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); text-align: center; }
+        .absen-box input[type="text"] { width: 200px; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .absen-box input[type="submit"] { padding: 8px 20px; background: #f55; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+        .absen-box input[type="submit"]:hover { background: #d44; }
+        .foto-karyawan { margin: 20px auto; width: 180px; height: 220px; object-fit: cover; border-radius: 8px; border: 1px solid #ccc; background: #eee; }
+        .notif { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .notif.sukses { background: #d4edda; color: #155724; }
+        .notif.error { background: #f8d7da; color: #721c24; }
     </style>
 </head>
 <body>
@@ -68,60 +75,22 @@ $karyawan = mysqli_query($connection, "SELECT * FROM karyawan ORDER BY nama ASC"
         <span style="font-size:0.6em;font-weight:normal;">Jl. Terusan Buahbatu No. 33</span>
     </div>
     <div class="container">
-        <div class="sidebar">
-            <h3>MENU PILIHAN</h3>
-            <ul class="menu">
-                <li onclick="window.location.href='Entry_Karyawan(Adm).php'">📋 Entry Karyawan</li>
-                <li onclick="window.location.href='daftar_hadir.php'">📅 Daftar Hadir</li>
-                <li onclick="window.location.href='#'">📊 Laporan</li>
-                <li onclick="window.location.href='Logout.php'">⏻ Logout</li>
-            </ul>
-        </div>
-        <div class="content">
-            <div class="form-entry">
-                <h4>Entry Daftar Hadir</h4>
-                <form method="post" action="">
-                    <label for="id_karyawan">ID Karyawan</label>
-                    <select id="id_karyawan" name="id_karyawan" required>
-                        <option value="">-- Pilih Karyawan --</option>
-                        <?php while ($row = mysqli_fetch_assoc($karyawan)) {
-                            echo '<option value="'.htmlspecialchars($row['id']).'">'.htmlspecialchars($row['id']).' - '.htmlspecialchars($row['nama']).'</option>';
-                        } ?>
-                    </select>
-                    <label for="tanggal">Tanggal</label>
-                    <input type="date" id="tanggal" name="tanggal" required>
-                    <label for="status">Status</label>
-                    <select id="status" name="status" required>
-                        <option value="Hadir">Hadir</option>
-                        <option value="Izin">Izin</option>
-                        <option value="Sakit">Sakit</option>
-                        <option value="Alpha">Alpha</option>
-                    </select>
-                    <input type="submit" name="simpan" value="Simpan">
-                </form>
-            </div>
-            <h4>Daftar Hadir Karyawan</h4>
-            <table>
-                <tr>
-                    <th>No</th>
-                    <th>ID Karyawan</th>
-                    <th>Nama</th>
-                    <th>Tanggal</th>
-                    <th>Status</th>
-                </tr>
-                <?php
-                $no = 1;
-                while ($row = mysqli_fetch_assoc($absensi)) {
-                    echo '<tr>';
-                    echo '<td>' . $no++ . '</td>';
-                    echo '<td>' . htmlspecialchars($row['id_karyawan']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['nama']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['tanggal']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['status']) . '</td>';
-                    echo '</tr>';
-                }
-                ?>
-            </table>
+        <div class="absen-box">
+            <form method="post" action="">
+                <label for="id_karyawan">ID Karyawan</label><br>
+                <input type="text" id="id_karyawan" name="id_karyawan" required autofocus>
+                <input type="submit" name="absen" value="Absen">
+            </form>
+            <?php if ($sukses): ?>
+                <div class="notif sukses"><?= htmlspecialchars($sukses) ?></div>
+            <?php endif; ?>
+            <?php if ($error): ?>
+                <div class="notif error"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+            <?php if ($foto): ?>
+                <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Foto Karyawan" class="foto-karyawan"><br>
+                <b><?= htmlspecialchars($nama) ?></b>
+            <?php endif; ?>
         </div>
     </div>
 </body>
