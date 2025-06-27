@@ -115,6 +115,13 @@ if (!isset($_SESSION['username'])) {
         tr:nth-child(even) {
             background: #f9f9f9;
         }
+        .sidebar-menu a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -124,12 +131,15 @@ if (!isset($_SESSION['username'])) {
     </div>
     <div class="container">
         <div class="sidebar">
-            <h3>MENU PILIHAN</h3>
-            <ul class="menu">
-                <li onclick="window.location.href='Entry_Karyawan.php'">📋 Entry Karyawan</li>
-                <li onclick="window.location.href='#'">📅 Daftar Hadir</li>
-                <li onclick="window.location.href='#'">📊 Laporan</li>
-                <li onclick="window.location.href='Logout.php'">⏻ Logout</li>
+            <div class="sidebar-header">
+                ABSENSI KARYAWAN PT. INFOMEDIA
+                <div style="font-size:0.7em;font-weight:normal;margin-top:4px;">Jl. Terusan Buahbatu No. 33</div>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="Entry_Karyawan(Adm).php">Entry Karyawan</a></li>
+                <li><a href="daftar_hadir.php">Daftar Hadir</a></li>
+                <li><a href="laporan.php">Laporan</a></li>
+                <li><a href="Logout.php">Logout</a></li>
             </ul>
         </div>
         <div class="content">

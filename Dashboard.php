@@ -23,6 +23,13 @@ if (!isset($_SESSION['username'])) {
         .logo img { width: 180px; margin-bottom: 20px; }
         .logo h1 { color: #d44; font-size: 2em; }
         @media (max-width: 900px) { .main-container { flex-direction: column; } .sidebar { width: 100%; flex-direction: row; } .content { padding: 15px; } }
+        .sidebar-menu a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -33,11 +40,11 @@ if (!isset($_SESSION['username'])) {
                 <div style="font-size:0.7em;font-weight:normal;margin-top:4px;">Jl. Terusan Buahbatu No. 33</div>
             </div>
             <ul class="sidebar-menu">
-                <li class="active" onclick="window.location.href='Dashboard.php'">Dashboard</li>
-                <li onclick="window.location.href='Entry_Karyawan(Adm).php'">Entry Karyawan</li>
-                <li onclick="window.location.href='daftar_hadir.php'">Daftar Hadir</li>
-                <li onclick="window.location.href='laporan.php'">Laporan</li>
-                <li onclick="window.location.href='Logout.php'">Logout</li>
+                <li><a href="Dashboard.php">Dashboard</a></li>
+                <li><a href="Entry_Karyawan(Adm).php">Entry Karyawan</a></li>
+                <li><a href="daftar_hadir.php">Daftar Hadir</a></li>
+                <li><a href="laporan.php">Laporan</a></li>
+                <li><a href="Logout.php">Logout</a></li>
             </ul>
         </div>
         <div class="content">

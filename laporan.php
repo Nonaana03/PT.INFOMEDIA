@@ -93,6 +93,13 @@ $query = mysqli_query($connection, "SELECT k.nama, a.tanggal, MIN(a.jam) as jam_
             .sidebar { width: 100%; flex-direction: row; }
             .content { padding: 15px; }
         }
+        .sidebar-menu a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -103,10 +110,10 @@ $query = mysqli_query($connection, "SELECT k.nama, a.tanggal, MIN(a.jam) as jam_
                 <div style="font-size:0.7em;font-weight:normal;margin-top:4px;">Jl. Terusan Buahbatu No. 33</div>
             </div>
             <ul class="sidebar-menu">
-                <li onclick="window.location.href='Entry_Karyawan(Adm).php'">Entry Karyawan</li>
-                <li onclick="window.location.href='daftar_hadir.php'">Daftar Hadir</li>
-                <li class="active" onclick="window.location.href='laporan.php'">Laporan</li>
-                <li onclick="window.location.href='Logout.php'">Logout</li>
+                <li><a href="Entry_Karyawan(Adm).php">Entry Karyawan</a></li>
+                <li><a href="daftar_hadir.php">Daftar Hadir</a></li>
+                <li><a href="laporan.php">Laporan</a></li>
+                <li><a href="Logout.php">Logout</a></li>
             </ul>
         </div>
         <div class="content">

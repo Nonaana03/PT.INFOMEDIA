@@ -67,6 +67,13 @@ $karyawan = mysqli_query($connection, "SELECT * FROM karyawan ORDER BY nama ASC"
         .notif { margin: 10px 0; padding: 10px; border-radius: 5px; }
         .notif.sukses { background: #d4edda; color: #155724; }
         .notif.error { background: #f8d7da; color: #721c24; }
+        .sidebar-menu a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
