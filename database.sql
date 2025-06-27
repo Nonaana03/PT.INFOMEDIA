@@ -13,3 +13,6 @@ CREATE TABLE IF NOT EXISTS user (
 INSERT INTO user (username, password, posisi) VALUES
 ('admin', 'admin123', 'admin'),
 ('manager', 'manager123', 'manager');
+
+-- Tambahkan kolom status ke tabel absensi jika belum ada
+ALTER TABLE absensi ADD COLUMN status VARCHAR(20) DEFAULT 'Hadir' AFTER jam;

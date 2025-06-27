@@ -43,21 +43,24 @@ if (!isset($_SESSION['username'])) {
             font-size: 1.2em;
             letter-spacing: 1px;
         }
-        .menu {
+        .sidebar-menu {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
-        .menu li {
-            padding: 15px 30px;
+        .sidebar-menu li {
+            font-size: 1.15em;
+            font-weight: bold;
+            padding: 18px 25px;
             border-bottom: 1px solid #fff3;
             cursor: pointer;
-            display: flex;
-            align-items: center;
+            transition: background 0.2s;
+            text-align: left;
         }
-        .menu li:hover {
+        .sidebar-menu li:hover {
             background: #ff9f5a;
         }
-        .menu li:last-child {
+        .sidebar-menu li:last-child {
             color: #ffb3b3;
         }
         .content {
@@ -114,6 +117,14 @@ if (!isset($_SESSION['username'])) {
         }
         tr:nth-child(even) {
             background: #f9f9f9;
+        }
+        .sidebar-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            text-align: left;
+            padding: 30px 25px 10px 25px;
+            letter-spacing: 1px;
+            line-height: 1.2;
         }
         .sidebar-menu a {
             color: inherit;
