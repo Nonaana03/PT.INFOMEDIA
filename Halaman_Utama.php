@@ -39,10 +39,10 @@ $hasil = mysqli_fetch_assoc($query);
         </div>
         <div id=sidebar>
             <div id=title_side> MENU PILIHAN </div>
-            <a href='?p=entry_karyawan '><div id=menu><img src='images/khs.png' width=25 height=25 align=left style='margin-right:10px'> Entry Karyawan</div></a>
-            <a href='?p=penerimaan '><div id=menu><img src='images/khs.png' width=25 height=25 align=left style='margin-right:10px'> Daftar Hadir </div></a>
-            <a href='?p=laporan '><div id=menu><img src='images/khs.png' width=25 height=25 align=left style='margin-right:10px'> Laporan </div></a>
-            <a href='logout.php'><div id=menu><img src='images/logout.png' width=25 height=25 align=left style='margin-right:10px'> Logout </div></a> 
+            <a href='?p=entry_karyawan '><div id=menu>Entry Karyawan</div></a>
+            <a href='?p=penerimaan '><div id=menu>Daftar Hadir</div></a>
+            <a href='?p=laporan '><div id=menu>Laporan</div></a>
+            <a href='logout.php'><div id=menu>Logout</div></a> 
         </div>
         <div id=contect>
             <?php
