@@ -9,7 +9,18 @@ if (!$connection) {
     die("Koneksi database gagal: " . mysqli_connect_error());
 }
 // Ambil data absensi gabung dengan nama karyawan
-$query = mysqli_query($connection, "SELECT k.nama, a.tanggal, MIN(a.jam) as jam_masuk, MAX(a.jam) as jam_keluar, '' as keterangan FROM absensi a LEFT JOIN karyawan k ON a.id_karyawan = k.id GROUP BY a.tanggal, a.id_karyawan ORDER BY a.tanggal DESC, k.nama ASC");
+$query = mysqli_query($connection, "
+    SELECT 
+        k.nama, 
+        a.tanggal, 
+        MIN(a.jam) as jam_masuk, 
+        MAX(a.jam) as jam_keluar,
+        (SELECT keterangan FROM absensi WHERE id_karyawan = a.id_karyawan AND tanggal = a.tanggal ORDER BY jam ASC LIMIT 1) as keterangan
+    FROM absensi a 
+    LEFT JOIN karyawan k ON a.id_karyawan = k.id 
+    GROUP BY a.tanggal, a.id_karyawan 
+    ORDER BY a.tanggal DESC, k.nama ASC
+");
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -21,6 +32,15 @@ $query = mysqli_query($connection, "SELECT k.nama, a.tanggal, MIN(a.jam) as jam_
             margin: 0;
             font-family: Arial, sans-serif;
             background: #f7f7f7;
+        }
+        .header {
+            background: #ff5555;
+            color: #fff;
+            padding: 30px 0 20px 0;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            letter-spacing: 2px;
         }
         .main-container {
             display: flex;
@@ -34,15 +54,6 @@ $query = mysqli_query($connection, "SELECT k.nama, a.tanggal, MIN(a.jam) as jam_
             display: flex;
             flex-direction: column;
             align-items: stretch;
-        }
-        .sidebar-header {
-            background: #ff5555;
-            padding: 30px 10px 20px 10px;
-            text-align: center;
-            font-size: 1.4em;
-            font-weight: bold;
-            letter-spacing: 2px;
-            line-height: 1.2;
         }
         .sidebar-menu {
             flex: 1;
@@ -92,6 +103,7 @@ $query = mysqli_query($connection, "SELECT k.nama, a.tanggal, MIN(a.jam) as jam_
             .main-container { flex-direction: column; }
             .sidebar { width: 100%; flex-direction: row; }
             .content { padding: 15px; }
+            .header { font-size: 1.2em; padding: 18px 0 12px 0; }
         }
         .sidebar-menu a {
             color: inherit;
@@ -103,12 +115,12 @@ $query = mysqli_query($connection, "SELECT k.nama, a.tanggal, MIN(a.jam) as jam_
     </style>
 </head>
 <body>
+    <div class="header">
+        ABSENSI KARYAWAN PT. INFOMEDIA<br>
+        <span style="font-size:0.7em;font-weight:normal;">Jl. Terusan Buahbatu No. 33</span>
+    </div>
     <div class="main-container">
         <div class="sidebar">
-            <div class="sidebar-header">
-                ABSENSI KARYAWAN PT. INFOMEDIA
-                <div style="font-size:0.7em;font-weight:normal;margin-top:4px;">Jl. Terusan Buahbatu No. 33</div>
-            </div>
             <ul class="sidebar-menu">
                 <li><a href="Entry_Karyawan(Adm).php">Entry Karyawan</a></li>
                 <li><a href="daftar_hadir.php">Daftar Hadir</a></li>

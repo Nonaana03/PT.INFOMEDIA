@@ -25,16 +25,9 @@ if (isset($_POST['simpan'])) {
 
         if ($user) {
             $_SESSION['username'] = $username; // Membuat session
-            $posisi = $user['posisi'];
-            if ($posisi == "admin") {
-                header("Location: admin/index.php");
-                exit();
-            } elseif ($posisi == "manager") {
-                header("Location: manager/index.php");
-                exit();
-            } else {
-                echo "Posisi user tidak dikenali.";
-            }
+            // Langsung redirect ke daftar_hadir.php untuk semua user
+            header("Location: daftar_hadir.php");
+            exit();
         } else {
             echo "Username atau Password belum terdaftar";
         }
