@@ -26,14 +26,50 @@ $total_sakit_hari_ini = mysqli_fetch_assoc(mysqli_query($connection, "SELECT COU
     <title>Menu Utama - INFOMEDIA</title>
     <style>
         body { margin: 0; font-family: Arial, sans-serif; background: #f7f7f7; }
-        .main-container { display: flex; min-height: 100vh; }
-        .sidebar { background: #ff7f2a; color: #fff; width: 220px; padding: 0; display: flex; flex-direction: column; align-items: stretch; }
+        .main-container {
+            display: flex;
+            align-items: flex-start;
+        }
+        .sidebar {
+            background: #ff7f2a;
+            color: #fff;
+            width: 220px;
+            padding: 0;
+            margin: 8px 0 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            border-top: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
         .sidebar-header { background: #ff5555; padding: 30px 10px 20px 10px; text-align: center; font-size: 1.4em; font-weight: bold; letter-spacing: 2px; line-height: 1.2; }
         .sidebar-menu { flex: 1; padding: 0; margin: 0; list-style: none; }
         .sidebar-menu li { padding: 18px 25px; border-bottom: 1px solid #fff3; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: background 0.2s; }
         .sidebar-menu li:hover, .sidebar-menu .active { background: #ff9f5a; }
         .sidebar-menu a { color: inherit; text-decoration: none; display: block; width: 100%; height: 100%; }
-        .content { flex: 1; background: #fff; padding: 40px 30px; }
+        .sidebar-menu .icon {
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+        .content {
+            flex: 1;
+            background: #fff;
+            padding: 40px 30px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .content-box {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            max-width: 1200px;
+            width: 100%;
+            padding: 32px 28px;
+            margin: 0 auto;
+            border: 2px solid #222;
+        }
         .dashboard-container { max-width: 1200px; margin: 0 auto; }
         .welcome-section { text-align: center; margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, #ff5555, #ff7f2a); color: white; border-radius: 10px; }
         .welcome-section h1 { margin: 0 0 10px 0; font-size: 2.5em; }
@@ -71,6 +107,12 @@ $total_sakit_hari_ini = mysqli_fetch_assoc(mysqli_query($connection, "SELECT COU
             font-weight: bold;
             letter-spacing: 2px;
         }
+        .sidebar-menu .logout {
+            border-radius: 0 !important;
+        }
+        .sidebar-menu .logout a {
+            border-radius: 0 !important;
+        }
         @media (max-width: 900px) {
             .main-container { flex-direction: column; }
             .sidebar { width: 100%; flex-direction: row; }
@@ -89,50 +131,52 @@ $total_sakit_hari_ini = mysqli_fetch_assoc(mysqli_query($connection, "SELECT COU
     <div class="main-container">
         <div class="sidebar">
             <ul class="sidebar-menu">
-                <li class="active"><a href="Menu_Utama.php">Menu Utama</a></li>
-                <li><a href="Entry_Karyawan(Adm).php">Entry Karyawan</a></li>
-                <li><a href="daftar_hadir.php">Daftar Hadir</a></li>
-                <li><a href="laporan.php">Laporan</a></li>
-                <li><a href="Logout.php">Logout</a></li>
+                <li class="menu-utama"><a href="Menu_Utama.php"><span class="icon">🏠</span>Menu Utama</a></li>
+                <li><a href="Entry_Karyawan(Adm).php"><span class="icon">👤</span>Entry Karyawan</a></li>
+                <li><a href="daftar_hadir.php"><span class="icon">🗓️</span>Daftar Hadir</a></li>
+                <li><a href="laporan.php"><span class="icon">📄</span>Laporan</a></li>
+                <li class="logout"><a href="Logout.php"><span class="icon">🚪</span>Logout</a></li>
             </ul>
         </div>
         <div class="content">
-            <div class="dashboard-container">
-                <div class="welcome-section">
-                    <h1>Selamat Datang!</h1>
-                    <p>Sistem Absensi Karyawan PT. Infomedia</p>
-                    <p style="font-size: 1em; margin-top: 10px;">Halo, <?= htmlspecialchars($username) ?>!</p>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>Total Karyawan</h3>
-                        <div class="number"><?= $total_karyawan ?></div>
-                        <div class="label">Karyawan Terdaftar</div>
+            <div class="content-box">
+                <div class="dashboard-container">
+                    <div class="welcome-section">
+                        <h1>Selamat Datang!</h1>
+                        <p>Sistem Absensi Karyawan PT. Infomedia</p>
+                        <p style="font-size: 1em; margin-top: 10px;">Halo, <?= htmlspecialchars($username) ?>!</p>
                     </div>
-                    <div class="stat-card">
-                        <h3>Hadir Hari Ini</h3>
-                        <div class="number"><?= $total_hadir_hari_ini ?></div>
-                        <div class="label">Karyawan Hadir</div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Karyawan</h3>
+                            <div class="number"><?= $total_karyawan ?></div>
+                            <div class="label">Karyawan Terdaftar</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Hadir Hari Ini</h3>
+                            <div class="number"><?= $total_hadir_hari_ini ?></div>
+                            <div class="label">Karyawan Hadir</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Izin Hari Ini</h3>
+                            <div class="number"><?= $total_izin_hari_ini ?></div>
+                            <div class="label">Karyawan Izin</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Sakit Hari Ini</h3>
+                            <div class="number"><?= $total_sakit_hari_ini ?></div>
+                            <div class="label">Karyawan Sakit</div>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <h3>Izin Hari Ini</h3>
-                        <div class="number"><?= $total_izin_hari_ini ?></div>
-                        <div class="label">Karyawan Izin</div>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Sakit Hari Ini</h3>
-                        <div class="number"><?= $total_sakit_hari_ini ?></div>
-                        <div class="label">Karyawan Sakit</div>
-                    </div>
-                </div>
-                
-                <div class="quick-actions">
-                    <h2>Aksi Cepat</h2>
-                    <div class="action-buttons">
-                        <a href="Entry_Karyawan(Adm).php" class="action-btn">Entry Karyawan</a>
-                        <a href="daftar_hadir.php" class="action-btn">Daftar Hadir</a>
-                        <a href="laporan.php" class="action-btn">Laporan</a>
+                    
+                    <div class="quick-actions">
+                        <h2>Aksi Cepat</h2>
+                        <div class="action-buttons">
+                            <a href="Entry_Karyawan(Adm).php" class="action-btn">Entry Karyawan</a>
+                            <a href="daftar_hadir.php" class="action-btn">Daftar Hadir</a>
+                            <a href="laporan.php" class="action-btn">Laporan</a>
+                        </div>
                     </div>
                 </div>
             </div>

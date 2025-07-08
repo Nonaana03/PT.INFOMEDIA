@@ -73,14 +73,48 @@ while ($row = mysqli_fetch_assoc($absensi_q)) {
     <title>Entry Karyawan - INFOMEDIA</title>
     <style>
         body { margin: 0; font-family: Arial, sans-serif; background: #f7f7f7; }
-        .main-container { display: flex; min-height: 100vh; }
-        .sidebar { background: #ff7f2a; color: #fff; width: 220px; padding: 0; display: flex; flex-direction: column; align-items: stretch; }
+        .main-container {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        .sidebar {
+            background: #ff7f2a;
+            color: #fff;
+            width: 220px;
+            padding: 0;
+            margin: 8px 0 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            border-top: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
         .sidebar-header { background: #ff5555; padding: 30px 10px 20px 10px; text-align: center; font-size: 1.4em; font-weight: bold; letter-spacing: 2px; line-height: 1.2; }
         .sidebar-menu { flex: 1; padding: 0; margin: 0; list-style: none; }
         .sidebar-menu li { padding: 18px 25px; border-bottom: 1px solid #fff3; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: background 0.2s; }
         .sidebar-menu li:hover, .sidebar-menu .active { background: #ff9f5a; }
         .sidebar-menu a { color: inherit; text-decoration: none; display: block; width: 100%; height: 100%; }
-        .content { flex: 1; background: #fff; padding: 40px 30px; }
+        .content {
+            flex: 1;
+            background: #fff;
+            padding: 40px 30px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .content-box {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            max-width: 1200px;
+            width: 100%;
+            padding: 32px 28px;
+            margin: 0 auto;
+            border: 2px solid #222;
+        }
         .entry-box { border: 2px solid #bbb; border-radius: 4px; background: #fff; padding: 20px 30px 30px 30px; max-width: 700px; margin: 0 auto; }
         .entry-box h3 { margin-top: 0; font-size: 1.2em; }
         .entry-form label { display: inline-block; width: 70px; margin-bottom: 8px; }
@@ -127,9 +161,30 @@ while ($row = mysqli_fetch_assoc($absensi_q)) {
             font-size: 2em;
             font-weight: bold;
             letter-spacing: 2px;
+            margin-bottom: 0;
         }
         @media (max-width: 900px) {
             .header { font-size: 1.2em; padding: 18px 0 12px 0; }
+        }
+        .sidebar-menu .menu-utama {
+            background: #ff5555 !important;
+            color: #fff;
+        }
+        .sidebar-menu .menu-utama a {
+            color: #fff !important;
+        }
+        .sidebar-menu .menu-utama:hover {
+            background: #ff5555 !important;
+        }
+        .sidebar-menu .icon {
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+        .sidebar-menu .logout {
+            border-radius: 0 !important;
+        }
+        .sidebar-menu .logout a {
+            border-radius: 0 !important;
         }
     </style>
 </head>
@@ -141,15 +196,16 @@ while ($row = mysqli_fetch_assoc($absensi_q)) {
     <div class="main-container">
         <div class="sidebar">
             <ul class="sidebar-menu">
-                <li><a href="Menu_Utama.php">Menu Utama</a></li>
-                <li class="active"><a href="Entry_Karyawan(Adm).php">Entry Karyawan</a></li>
-                <li><a href="daftar_hadir.php">Daftar Hadir</a></li>
-                <li><a href="laporan.php">Laporan</a></li>
-                <li><a href="Logout.php">Logout</a></li>
+                <li class="menu-utama"><a href="Menu_Utama.php"><span class="icon">🏠</span>Menu Utama</a></li>
+                <li class="active"><a href="Entry_Karyawan(Adm).php"><span class="icon">👤</span>Entry Karyawan</a></li>
+                <li><a href="daftar_hadir.php"><span class="icon">🗓️</span>Daftar Hadir</a></li>
+                <li><a href="laporan.php"><span class="icon">📄</span>Laporan</a></li>
+                <li class="logout"><a href="Logout.php"><span class="icon">🚪</span>Logout</a></li>
             </ul>
         </div>
         <div class="content">
-            <div class="entry-box">
+            <div class="content-box">
+                <div class="entry-box">
                 <h3>Entry Karyawan</h3>
                 <?php if ($error): ?>
                     <div style="color:#fff;background:#ff5555;padding:8px 0;margin-bottom:10px;border-radius:4px;text-align:center;max-width:400px;margin-left:auto;margin-right:auto;">
@@ -221,6 +277,7 @@ while ($row = mysqli_fetch_assoc($absensi_q)) {
                     }
                     ?>
                 </table>
+                </div>
             </div>
         </div>
     </div>
