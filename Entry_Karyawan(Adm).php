@@ -89,13 +89,19 @@ while ($row = mysqli_fetch_assoc($absensi_q)) {
         .entry-form input[type="submit"] { padding: 5px 18px; background: #ff5555; color: #fff; border: none; border-radius: 3px; font-weight: bold; cursor: pointer; }
         .entry-form input[type="submit"]:hover { background: #ff7f2a; }
         .karyawan-table { width: 100%; border-collapse: collapse; margin-top: 18px; }
-        .karyawan-table th, .karyawan-table td { border: 1px solid #bbb; padding: 7px 10px; text-align: center; font-size: 1em; }
+        .karyawan-table th, .karyawan-table td { border: 1px solid #bbb; padding: 7px 5px; text-align: center; font-size: 1em; }
         .karyawan-table th { background: #ffe0e0; }
         .karyawan-table tr:nth-child(even) { background: #f9f9f9; }
         .karyawan-table td.nama, .karyawan-table th.nama { text-align: left; }
         .karyawan-table td.alamat, .karyawan-table th.alamat { text-align: left; }
         .karyawan-table td.jabatan, .karyawan-table th.jabatan { text-align: left; }
-        .karyawan-table td.keterangan, .karyawan-table th.keterangan { text-align: left; }
+        .karyawan-table td.keterangan, .karyawan-table th.keterangan {
+            text-align: left !important;
+            min-width: 200px;
+            max-width: none;
+            white-space: normal;
+            word-break: break-word;
+        }
         .option-btn {
             padding: 2px 10px;
             border: 1px solid #bbb;
@@ -135,6 +141,7 @@ while ($row = mysqli_fetch_assoc($absensi_q)) {
     <div class="main-container">
         <div class="sidebar">
             <ul class="sidebar-menu">
+                <li><a href="Menu_Utama.php">Menu Utama</a></li>
                 <li class="active"><a href="Entry_Karyawan(Adm).php">Entry Karyawan</a></li>
                 <li><a href="daftar_hadir.php">Daftar Hadir</a></li>
                 <li><a href="laporan.php">Laporan</a></li>

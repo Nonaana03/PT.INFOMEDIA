@@ -115,6 +115,7 @@ while ($row = mysqli_fetch_assoc($absensi_q)) {
     <div class="main-container">
         <div class="sidebar">
             <ul class="sidebar-menu">
+                <li><a href="Menu_Utama.php">Menu Utama</a></li>
                 <li><a href="Entry_Karyawan(Adm).php">Entry Karyawan</a></li>
                 <li class="active"><a href="daftar_hadir.php">Daftar Hadir</a></li>
                 <li><a href="laporan.php">Laporan</a></li>

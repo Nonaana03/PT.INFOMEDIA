@@ -122,9 +122,10 @@ $query = mysqli_query($connection, "
     <div class="main-container">
         <div class="sidebar">
             <ul class="sidebar-menu">
+                <li><a href="Menu_Utama.php">Menu Utama</a></li>
                 <li><a href="Entry_Karyawan(Adm).php">Entry Karyawan</a></li>
                 <li><a href="daftar_hadir.php">Daftar Hadir</a></li>
-                <li><a href="laporan.php">Laporan</a></li>
+                <li class="active"><a href="laporan.php">Laporan</a></li>
                 <li><a href="Logout.php">Logout</a></li>
             </ul>
         </div>

@@ -25,8 +25,8 @@ if (isset($_POST['simpan'])) {
 
         if ($user) {
             $_SESSION['username'] = $username; // Membuat session
-            // Langsung redirect ke daftar_hadir.php untuk semua user
-            header("Location: daftar_hadir.php");
+            // Redirect ke Menu Utama setelah login berhasil
+            header("Location: Menu_Utama.php");
             exit();
         } else {
             echo "Username atau Password belum terdaftar";
