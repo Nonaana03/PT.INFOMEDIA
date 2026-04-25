@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard Clustering</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+.title {
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.stat-card {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.section-title {
+    margin-bottom: 15px;
+    font-weight: 500;
+    border-left: 4px solid #07eb66;
+    padding-left: 10px;
+}
+
+img {
+    border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<!-- HEADER -->
+<h2 class="text-center title mb-4">📊 Dashboard Clustering</h2>
+
+<!-- STATISTIK -->
+<div class="row mb-4">
+
+<div class="col-md-6">
+<div class="stat-card">
+<p>Total Data</p>
+<div class="stat-number">{{ total }}</div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="stat-card">
+<p>Rata-rata</p>
+<div class="stat-number">{{ rata }}</div>
+</div>
+</div>
+
+</div>
+
+<!-- GRAFIK -->
+<div class="row">
+
+<div class="col-md-6 mb-4">
+<div class="card">
+<h6 class="section-title">Visualisasi Cluster</h6>
+<img src="/static/cluster.png" class="img-fluid">
+</div>
+</div>
+
+<div class="col-md-6 mb-4">
+<div class="card">
+<h6 class="section-title">Elbow Method</h6>
+<img src="/static/elbow.png" class="img-fluid">
+</div>
+</div>
+
+<div class="col-md-6 mb-4">
+<div class="card">
+<h6 class="section-title">Silhouette Score</h6>
+<img src="/static/silhouette.png" class="img-fluid">
+</div>
+</div>
+
+<div class="col-md-6 mb-4">
+<div class="card">
+<h6 class="section-title">Ringkasan Cluster</h6>
+<img src="/static/summary.png" class="img-fluid">
+</div>
+</div>
+
+</div>
+
+<!-- DATA -->
+<div class="card mt-4 p-3">
+<h5 class="section-title">Data Hasil Clustering</h5>
+<div class="table-responsive text-dark bg-white p-2 rounded">
+{% for table in tables %}
+{{ table|safe }}
+{% endfor %}
+</div>
+</div>
+
+<!-- RINGKASAN -->
+<div class="card mt-4 p-3">
+<h5 class="section-title">Ringkasan (Tabel)</h5>
+{{ summary|safe }}
+</div>
+
+<!-- BUTTON -->
+<div class="text-center mt-4">
+<a href="/" class="btn btn-outline-light px-4">⬅ Kembali</a>
+</div>
+
+</div>
+
+<!-- ANIMASI -->
+<script>
+const cards = document.querySelectorAll('.card');
+
+window.onload = () => {
+cards.forEach((card, i) => {
+setTimeout(() => {
+card.classList.add('show');
+}, i * 150);
+});
+};
+</script>
+
+</body>
+</html>
